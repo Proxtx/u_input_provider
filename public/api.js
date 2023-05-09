@@ -23,3 +23,14 @@ export const evaluateInput = async (pwd, inputName, inputValue) => {
   if (!(await auth(pwd))) return;
   return await inputs[inputName].handler.evaluate(inputValue);
 };
+
+export const resolveInput = async (pwd, input) => {
+  if (input?.inputOverwrite) {
+    if (input.value?.evaluate) {
+      return await evaluateInput(pwd, input.type, input.value);
+    } else {
+      return input.value;
+    }
+  }
+  return input;
+};
