@@ -32,5 +32,8 @@ export const resolveInput = async (pwd, input) => {
       return input.value;
     }
   }
+  if (input.evaluate && input.type) {
+    return await evaluateInput(pwd, input.type, input);
+  }
   return input;
 };
