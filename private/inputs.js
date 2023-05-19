@@ -20,17 +20,21 @@ async function loadInput(inputName) {
     await fs.readFile("inputs/" + inputName + "/definition.json", "utf8")
   );
 
-  let handler;
-  try {
-    await fs.stat("inputs/" + inputName + "/handler.js");
-    handler = await import("../inputs/" + inputName + "/handler.js");
-  } catch {}
-
-  return {
+  let inputObj = {
     definition,
     html,
     css,
     component,
-    handler: handler ? handler : null,
   };
+
+  (async () => {
+    try {
+      await fs.stat("inputs/" + inputName + "/handler.js");
+      inputObj.handler = await import("../inputs/" + inputName + "/handler.js");
+    } catch {
+      inputObj.handler = null;
+    }
+  })();
+
+  return inputObj;
 }
