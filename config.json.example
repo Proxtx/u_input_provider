@@ -1,4 +1,4 @@
 {
   "port": 3006,
-  "unifyGui": "http://localhost:3013/api/"
+  "apps": "http://localhost:3013/api/"
 }
